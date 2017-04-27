@@ -1,0 +1,289 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      9604,        280]
+NotebookOptionsPosition[      9134,        260]
+NotebookOutlinePosition[      9480,        275]
+CellTagsIndexPosition[      9437,        272]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Needs", "[", "\"\<Combinatorica`\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{
+   "Import", "[", 
+    "\"\<C:\\\\Users\\\\tshao\\\\Dropbox\\\\data and \
+algorithm\\\\SCC.dat\>\"", "]"}]}], ";"}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "compat"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Combinatorica Graph and Permutations functionality has \
+been superseded by preloaded functionality. The package now being loaded may \
+conflict with this. Please see the Compatibility Guide for details.\"\>"}]], \
+"Message", "MSG",
+ CellChangeTimes->{3.6108758510262375`*^9}]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Rgg", "=", 
+   RowBox[{"ToAdjacencyLists", "[", 
+    RowBox[{"FromOrderedPairs", "[", 
+     RowBox[{"Reverse", "[", 
+      RowBox[{"data", ",", "2"}], "]"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Agg", "=", 
+   RowBox[{"ToAdjacencyLists", "[", 
+    RowBox[{"FromOrderedPairs", "[", "data", "]"}], "]"}]}], ";"}]}], "Input"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"p", "=", "875714"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Timing", "[", 
+  RowBox[{
+   RowBox[{"vet", "=", 
+    RowBox[{"ConstantArray", "[", 
+     RowBox[{"0", ",", "p"}], "]"}]}], ";", "\[IndentingNewLine]", 
+   RowBox[{"sta", "=", 
+    RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+   RowBox[{"Arr", "=", 
+    RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"DFS1", "[", "n_", "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"i", ",", "c", ",", "d"}], "}"}], ",", 
+      RowBox[{
+       RowBox[{"c", "=", "0"}], ";", 
+       RowBox[{"i", "=", "1"}], ";", 
+       RowBox[{
+        RowBox[{"vet", "[", 
+         RowBox[{"[", "n", "]"}], "]"}], "=", "1"}], ";", 
+       RowBox[{"AppendTo", "[", 
+        RowBox[{"sta", ",", "n"}], "]"}], ";", 
+       RowBox[{"d", "=", "1"}], ";", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Length", "[", "sta", "]"}], ">", "0"}], ",", 
+         RowBox[{
+          RowBox[{"c", "=", 
+           RowBox[{"sta", "[", 
+            RowBox[{"[", "i", "]"}], "]"}]}], ";", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Length", "[", 
+              RowBox[{"Rgg", "[", 
+               RowBox[{"[", "c", "]"}], "]"}], "]"}], ">", "0"}], ",", 
+            RowBox[{
+             RowBox[{"d", "=", 
+              RowBox[{"Rgg", "[", 
+               RowBox[{"[", 
+                RowBox[{"c", ",", "1"}], "]"}], "]"}]}], ";", 
+             RowBox[{"Rgg", "=", 
+              RowBox[{"Delete", "[", 
+               RowBox[{"Rgg", ",", 
+                RowBox[{"{", 
+                 RowBox[{"c", ",", "1"}], "}"}]}], "]"}]}], ";", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"vet", "[", 
+                 RowBox[{"[", "d", "]"}], "]"}], "==", "0"}], ",", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"vet", "[", 
+                  RowBox[{"[", "d", "]"}], "]"}], "=", "1"}], ";", 
+                RowBox[{"AppendTo", "[", 
+                 RowBox[{"sta", ",", "d"}], "]"}], ";", 
+                RowBox[{"i", "++"}]}]}], "]"}]}], ",", 
+            RowBox[{
+             RowBox[{"AppendTo", "[", 
+              RowBox[{"Arr", ",", 
+               RowBox[{"sta", "[", 
+                RowBox[{"[", "i", "]"}], "]"}]}], "]"}], ";", 
+             RowBox[{"sta", "=", 
+              RowBox[{"Delete", "[", 
+               RowBox[{"sta", ",", "i"}], "]"}]}], ";", 
+             RowBox[{"i", "--"}]}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";", 
+   "\[IndentingNewLine]", 
+   RowBox[{"For", "[", 
+    RowBox[{
+     RowBox[{"i", "=", "p"}], ",", 
+     RowBox[{"i", ">", "0"}], ",", 
+     RowBox[{"i", "--"}], ",", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"vet", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "==", "0"}], ",", 
+        RowBox[{"DFS1", "[", "i", "]"}]}], "]"}], ";", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"IntegerQ", "[", 
+         RowBox[{"i", "/", "50000"}], "]"}], ",", 
+        RowBox[{"Print", "[", "i", "]"}]}], "]"}]}]}], "]"}], ";"}], 
+  "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{
+  3.610875793152008*^9, {3.6108759940760927`*^9, 3.6108760025629416`*^9}, 
+   3.6108760329019747`*^9}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Timing", "[", 
+    RowBox[{
+     RowBox[{"sta", "=", 
+      RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"vet", "=", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"0", ",", "p"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Leader", "=", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"0", ",", "p"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"s", "=", "0"}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"DFS2", "[", "n_", "]"}], ":=", 
+      RowBox[{"Module", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"i", ",", "c", ",", "d"}], "}"}], ",", 
+        RowBox[{
+         RowBox[{"c", "=", "0"}], ";", 
+         RowBox[{"i", "=", "1"}], ";", 
+         RowBox[{
+          RowBox[{"vet", "[", 
+           RowBox[{"[", "n", "]"}], "]"}], "=", "1"}], ";", 
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"sta", ",", "n"}], "]"}], ";", 
+         RowBox[{"d", "=", "1"}], ";", 
+         RowBox[{"While", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Length", "[", "sta", "]"}], ">", "0"}], ",", 
+           RowBox[{
+            RowBox[{"c", "=", 
+             RowBox[{"sta", "[", 
+              RowBox[{"[", "i", "]"}], "]"}]}], ";", 
+            RowBox[{
+             RowBox[{"Leader", "[", 
+              RowBox[{"[", "c", "]"}], "]"}], "=", "s"}], ";", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"Length", "[", 
+                RowBox[{"Agg", "[", 
+                 RowBox[{"[", "c", "]"}], "]"}], "]"}], ">", "0"}], ",", 
+              RowBox[{
+               RowBox[{"d", "=", 
+                RowBox[{"Agg", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"c", ",", "1"}], "]"}], "]"}]}], ";", 
+               RowBox[{"Agg", "=", 
+                RowBox[{"Delete", "[", 
+                 RowBox[{"Agg", ",", 
+                  RowBox[{"{", 
+                   RowBox[{"c", ",", "1"}], "}"}]}], "]"}]}], ";", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"vet", "[", 
+                   RowBox[{"[", "d", "]"}], "]"}], "==", "0"}], ",", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"vet", "[", 
+                    RowBox[{"[", "d", "]"}], "]"}], "=", "1"}], ";", 
+                  RowBox[{"AppendTo", "[", 
+                   RowBox[{"sta", ",", "d"}], "]"}], ";", 
+                  RowBox[{"i", "++"}]}]}], "]"}]}], ",", 
+              RowBox[{
+               RowBox[{"sta", "=", 
+                RowBox[{"Delete", "[", 
+                 RowBox[{"sta", ",", "i"}], "]"}]}], ";", 
+               RowBox[{"i", "--"}]}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "p"}], ",", 
+       RowBox[{"i", ">", "0"}], ",", 
+       RowBox[{"i", "--"}], ",", 
+       RowBox[{
+        RowBox[{"d", "=", 
+         RowBox[{"Arr", "[", 
+          RowBox[{"[", "i", "]"}], "]"}]}], ";", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"vet", "[", 
+            RowBox[{"[", "d", "]"}], "]"}], "==", "0"}], ",", 
+          RowBox[{
+           RowBox[{"s", "=", "d"}], ";", 
+           RowBox[{"DFS2", "[", "d", "]"}]}]}], "]"}], ";", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"IntegerQ", "[", 
+           RowBox[{"i", "/", "200000"}], "]"}], ",", 
+          RowBox[{"Print", "[", "i", "]"}]}], "]"}]}]}], "]"}]}], 
+    "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{
+  3.6108760355572405`*^9, {3.6110093851874495`*^9, 3.611009385780249*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Sort", "[", 
+  RowBox[{
+   RowBox[{"Map", "[", 
+    RowBox[{"Length", ",", 
+     RowBox[{"Gather", "[", "Leader", "]"}], ",", 
+     RowBox[{"{", "1", "}"}]}], "]"}], ",", "Greater"}], "]"}]], "Input"]
+},
+WindowSize->{707, 801},
+WindowMargins->{{Automatic, 112}, {-15, Automatic}},
+FrontEndVersion->"9.0 for Microsoft Windows (64-bit) (January 25, 2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 345, 8, 72, "Input"],
+Cell[927, 32, 399, 9, 56, "Message"]
+}, Open  ]],
+Cell[1341, 44, 392, 11, 52, "Input"],
+Cell[1736, 57, 3400, 93, 252, "Input"],
+Cell[5139, 152, 3764, 98, 292, "Input"],
+Cell[8906, 252, 224, 6, 31, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
